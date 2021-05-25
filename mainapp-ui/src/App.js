@@ -8,14 +8,16 @@ import PostDetail from './components/Posts/PostDetail';
 function App() {
 
   const[type, SetTypeGlobal] = useState({})
+  const[category, setCategoryGlobal] = useState({})
+
 
   return (
     <div className="App">
       <Router>
         <Navbar />
         <Switch>
-            <Route path="/posts/:id" exact component={PostDetail}/>
-            <Route path="/category/:id" exact render={(props)=><CategoryDetail type={type} {...props}/>}/>
+            <Route path="/posts/:id" exact render={(props)=><PostDetail category={category} {...props}/>}/>
+            <Route path="/category/:id" exact render={(props)=><CategoryDetail setCategoryGlobal={setCategoryGlobal} type={type} {...props}/>}/>
             <Route path="/type/:id" exact render={(props)=><TypeDetail SetTypeGlobal={SetTypeGlobal} {...props}/>} />
         </Switch>
       </Router>

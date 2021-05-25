@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 
-function PostDetail({ match }) {
+function PostDetail({ match, category }) {
 
     const [post, setPost] = useState({})
     const id = match.params.id
@@ -18,8 +18,12 @@ function PostDetail({ match }) {
 
     return (
         <div>
-            Post with id {post.id}
-            <p>Title <strong>{post.title}</strong></p>
+            <Link to={{pathname:`/category/${category}`, fromDashboard: false}}>Назад</Link>
+            <p>Название: <strong>{post.title}</strong></p>
+            <p>Зарплата<strong>{post.salary}</strong></p>
+            <p>Описание</p>
+            <p>{post.content}</p>
+            <a href={post.link} rel='noreferrer' target='_blank'>Ссылка для связи</a>
         </div>
     )
 }

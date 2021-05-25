@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 
-function CategoryDetail({ match, type }) {
+function CategoryDetail({ match, type, setCategoryGlobal }) {
 
     const [category, setCategory] = useState({})
     const [posts, setPosts] = useState([])
     const id = match.params.id
+    setCategoryGlobal(category.id)
 
     useEffect(() => {
         axios({
@@ -20,6 +21,7 @@ function CategoryDetail({ match, type }) {
 
     return (
         <div>
+            <Link to={{pathname:`/type/${type}`, fromDashboard: false}}>Назад</Link>
             Category with id {category.id}
             <p>Category: <strong>{category.name}</strong></p>
             <hr/>
@@ -29,9 +31,8 @@ function CategoryDetail({ match, type }) {
                     if (unit.blog_type == type){ return(
                    <div className="col-md-4" key={index}>
                        <h4>{unit.title}</h4>
-                       <p>{unit.content}</p>
-                       <p>{unit.id}</p>
-                       <Link to={{pathname:`/posts/${unit.id}`, fromDashboard: false}}>Детали</Link>
+                       <p>Зарплата: {unit.salary}рублей</p>
+                       <Link to={{pathname:`/posts/${unit.id}`, fromDashboard: false}}>Подробнее</Link>
                    </div>
                 )}
                 else return null
