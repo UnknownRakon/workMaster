@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.utils.translation import ugettext_lazy as _
+from .managers import CustomUserManager
 
    
 class BlogCategory(models.Model):
@@ -47,3 +50,13 @@ class BlogPost(models.Model):
 
         def __str__(self):
             return f"{self.title} из категории \"{self.blog_category.name}\" с типом \"{self.blog_type.name}\""
+
+class User(AbstractUser):
+    name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255, unique=True)
+    username = None
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()

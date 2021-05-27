@@ -24,5 +24,5 @@ urlpatterns = [
     path('posts/<int:id>/', post_detail),
     path('category/<int:id>/', category_detail),
     path('type/<int:id>/', type_detail),
-    path('api/', include('mainapp.api.urls'))
+    path('api/', include('mainapp.api.urls')),
 ]
