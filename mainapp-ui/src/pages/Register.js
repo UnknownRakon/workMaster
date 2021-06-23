@@ -1,7 +1,38 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router";
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
 
-const Register = () => {
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+export default function Register() {
+  const classes = useStyles();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,7 +41,7 @@ const Register = () => {
     e.preventDefault()
     await fetch('http://127.0.0.1:8000/api/register', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name,
         email,
@@ -18,44 +49,74 @@ const Register = () => {
       })
     })
 
-    setTimeout(()=>setRedirect(true), 1000)
+    setTimeout(() => setRedirect(true), 1000)
   }
   if (redirect)
-  return <Redirect to='login' />;
+    return <Redirect to='login' />;
 
   return (
-    <div>
-    <main className="form-signin">
-      <form onSubmit={submit}>
-        <h1 className="h3 mb-3 fw-normal">Please Register</h1>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Name"
-          required
-          onChange={e => setName(e.target.value)}
-        />
-        <input
-          type="email"
-          className="form-control"
-          placeholder="name@example.com"
-          required
-          onChange={e => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          className="form-control"
-          placeholder="Password"
-          required
-          onChange={e => setPassword(e.target.value)}
-        />
-        <button className="w-100 btn btn-lg btn-primary" type="submit">
-          Submit
-        </button>
-      </form>
-    </main>
-    </div>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Регистрация
+        </Typography>
+        <form className={classes.form} onSubmit={submit}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="name"
+            placeholder='Имя'
+            name="name"
+            autoComplete="name"
+            autoFocus
+            onChange={e => setName(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            placeholder='Email'
+            name="email"
+            autoComplete="email"
+            autoFocus
+            onChange={e => setEmail(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            placeholder='Пароль'
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Зарегистрироваться
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link to='/login'>Есть аккаунт? Войди!</Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
   );
 };
-
-export default Register;

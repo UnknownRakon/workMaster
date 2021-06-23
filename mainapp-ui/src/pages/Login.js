@@ -1,19 +1,49 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
 
-const Login = ({setNameGlobal}) => {
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+export default function Login({ setNameGlobal }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [redirect, setRedirect] = useState(false)
-  useEffect(()=>setNameGlobal(undefined))
-  const submit = async (e) =>{
+  const classes = useStyles();
+  useEffect(() => setNameGlobal(undefined))
+  const submit = async (e) => {
     e.preventDefault();
 
     await fetch('http://127.0.0.1:8000/api/login', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body: JSON.stringify({
         email,
@@ -23,33 +53,58 @@ const Login = ({setNameGlobal}) => {
     setRedirect(true)
   }
   if (redirect)
-  return <Redirect to='/' />;
+    return <Redirect to='/' />;
   return (
-    <div>
-    <main className="form-signin">
-      <form onSubmit={submit}>
-        <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-        <input
-          type="email"
-          className="form-control"
-          placeholder="name@example.com"
-          required
-          onChange={e => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          className="form-control"
-          placeholder="Password"
-          required
-          onChange={e => setPassword(e.target.value)}
-        />
-        <button className="w-100 btn btn-lg btn-primary" type="submit">
-          Sign in
-        </button>
-      </form>
-    </main>
-    </div>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <HowToRegIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Вход
+        </Typography>
+        <form className={classes.form} onSubmit={submit}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            placeholder='Email'
+            name="email"
+            autoComplete="email"
+            autoFocus
+            onChange={e => setEmail(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            placeholder='Пароль'
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Войти
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link to='/register'>Нет аккаунта? Зарегистрируйтесь!</Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
   );
 };
-
-export default Login;

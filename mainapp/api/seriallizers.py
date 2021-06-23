@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import fields
 from rest_framework import serializers
 
-from ..models import BlogPost, BlogCategory, BlogType, User
+from ..models import BlogPost, BlogCategory, BlogType, Comments, Reviews, User
 
 class BlogCategorySerializer(serializers.ModelSerializer):
 
@@ -46,14 +46,57 @@ class BlogPostSerializer(serializers.ModelSerializer):
         model = BlogPost
         fields = '__all__'
 
+class BlogOwnerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields =['email']
+
+class CommentsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comments
+        fields = '__all__'
+
+class CommentsDetailSerializer(serializers.ModelSerializer):
+
+    owner = BlogOwnerSerializer()
+
+    class Meta:
+        model = Comments
+        fields = '__all__'
+
+
+class BlogOwnerDetailSerializer(serializers.ModelSerializer):
+
+    posts = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = '__all__'
+
+    @staticmethod
+    def get_posts(obj):
+        return BlogOwnerSerializer(User.objects.filter(owner=obj), many=True).data
+        
 class BlogPostListRetriveSerializer(serializers.ModelSerializer):
 
     blog_category = BlogCategorySerializer()
     blog_type = BlogTypeSerializer()
+    owner = BlogOwnerSerializer()
+    comments = serializers.SerializerMethodField()
 
     class Meta:
         model = BlogPost
         fields = '__all__'
+
+    def create(self, validated_data):
+        post = BlogPost.objects.all(**validated_data)
+        return post
+
+    @staticmethod
+    def get_comments(obj):
+        return CommentsDetailSerializer(Comments.objects.filter(blog_post=obj), many=True).data
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -70,3 +113,17 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+class ReviewsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Reviews
+        fields = '__all__'
+
+class ReviewsDetailSerializer(serializers.ModelSerializer):
+
+    owner = BlogOwnerSerializer()
+
+    class Meta:
+        model = Reviews
+        fields = '__all__'

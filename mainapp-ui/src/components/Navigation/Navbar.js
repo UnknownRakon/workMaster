@@ -3,8 +3,49 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PropTypes from 'prop-types'
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
+import VpnKeyRoundedIcon from '@material-ui/icons/VpnKeyRounded';
+import LockOpenRoundedIcon from '@material-ui/icons/LockOpenRounded';
 
-function Navbar({name}) {
+
+import '../../styles/navbar.css'
+
+const useStyles = makeStyles((theme) => ({
+    '@global': {
+        ul: {
+            margin: 0,
+            padding: 0,
+            listStyle: 'none',
+        },
+    },
+    appBar: {
+        borderBottom: `1px solid ${theme.palette.divider}`,
+    },
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    toolbar: {
+        borderBottom: `1px solid ${theme.palette.divider}`,
+    },
+    toolbarTitle: {
+        flex: 1,
+    },
+    toolbarSecondary: {
+        justifyContent: 'space-between',
+        overflowX: 'auto',
+    },
+}));
+
+export default function Navbar({ name }) {
+    const classes = useStyles();
 
     const [types, setTypes] = useState([])
 
@@ -17,50 +58,79 @@ function Navbar({name}) {
         })
     }, [])
 
-    const logout = async() =>{
+    const logout = async () => {
         await fetch('http://127.0.0.1:8000/api/logout', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      credentials: 'include',
-    });
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        });
     }
 
     let menu;
+    let header;
 
     if (name === undefined) {
-        menu = (
-            <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
-                <li className="nav-item"><Link to='/login' className="nav-link ml-6">Войти</Link></li>
-                <li className="nav-item"><Link to='/register' className="nav-link">Зарегистрироваться</Link></li>
-            </ul>
+        header = (
+            <Toolbar className={classes.toolbar} style={{ flexWrap: 'wrap' }}>
+                <Typography
+                    component="h2"
+                    variant="h5"
+                    color="inherit"
+                    noWrap
+                    className={classes.toolbarTitle}
+                >
+                    <Link className="nav" to='/'>Worker</Link>
+                </Typography>
+                <Link className="nav" to='/login'>
+                <Button variant="outlined" size="small" style={{ marginRight: 5 }}>
+                    <VpnKeyRoundedIcon />
+                </Button>
+                </Link>
+                <Link className="nav" to='/register'>
+                    <Button variant="outlined" size="small">
+                        <LockOpenRoundedIcon />
+                    </Button>
+                </Link>
+            </Toolbar>
         )
+        menu = null
     } else {
+        header = (
+            <Toolbar className={classes.toolbar}>
+                <Typography
+                    component="h2"
+                    variant="h5"
+                    color="inherit"
+                    noWrap
+                    className={classes.toolbarTitle}
+                >
+                    <Link className="nav" to='/'>Worker</Link>
+                </Typography>
+                <Link to='/login' className="nav" onClick={logout}>
+                    <Button variant="outlined" size="small">
+                        <ExitToAppRoundedIcon />
+                    </Button>
+                </Link>
+            </Toolbar>
+        )
         menu = (
-            <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
+            <Toolbar component="nav" style={{ background: 'black' }} variant="dense" className={classes.toolbarSecondary}>
                 {types.map(c => (
-                    <li className="nav-item"><Link to={{ pathname: `/type/${c.id}/`, fromDashboard: false }} key={c.id} className="nav-link">{c.name}</Link></li>
+                    <Link className="link" to={{ pathname: `/type/${c.id}/`, fromDashboard: false }} key={c.id}>{c.name}</Link>
                 ))}
-                <li className="nav-item"><Link to='/login' className="nav-link ml-6" onClick={logout}>Выйти</Link></li>
-            </ul>
+                <Link className="link" to='/myposts'>Мои посты</Link>
+                <Link className="link" to='/newpost'>Создать пост</Link>
+            </Toolbar>
         )
     }
 
     return (
-        <nav className="navbar navbar-expand-md bg-dark mb-3">
-            {console.log(name)}
-            <div className="container-fluid">
-                <Link to='/' className="navbar-brand">Главная</Link>
-                <div className="collapse navbar-collapse">
-                    <div className="navbar-nav">
-                        {menu}
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <AppBar color="default" position="static" elevation={0} className={classes.appBar}>
+            {header}
+            {menu}
+        </AppBar>
     );
 }
 Navbar.propTypes = {
     name: PropTypes.string
 }
-
-export default Navbar;

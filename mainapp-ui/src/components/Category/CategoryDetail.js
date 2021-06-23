@@ -27,7 +27,6 @@ function CategoryDetail({ match, type, setCategoryGlobal }) {
             <hr/>
             <div className="row">
                 {posts.map((unit,index)=>{ 
-                    console.log(unit)
                     if (unit.blog_type == type){ return(
                    <div className="col-md-4" key={index}>
                        <h4>{unit.title}</h4>

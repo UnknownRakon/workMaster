@@ -1,0 +1,20 @@
+.nav{
+    color: black;
+    text-decoration: none;
+}
+.nav:hover{
+    color: black;
+    text-decoration: none;
+}
+.link{
+    color: white;
+    text-decoration: none;
+    padding: 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.link:hover{
+    color: whitesmoke;
+    text-decoration: none;
+}
