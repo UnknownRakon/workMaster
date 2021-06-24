@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  container: {
+    backgroundColor: theme.palette.background.paper,
+    paddingBottom: 20,
+}
 }));
 
 export default function Login({ setNameGlobal }) {
@@ -55,7 +59,7 @@ export default function Login({ setNameGlobal }) {
   if (redirect)
     return <Redirect to='/' />;
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className={classes.container}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

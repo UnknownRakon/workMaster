@@ -119,7 +119,7 @@ export default function Navbar({ name }) {
                     <Link className="link" to={{ pathname: `/type/${c.id}/`, fromDashboard: false }} key={c.id}>{c.name}</Link>
                 ))}
                 <Link className="link" to='/myposts'>Мои посты</Link>
-                <Link className="link" to='/newpost'>Создать пост</Link>
+               <Link className="link" to='/newpost'>Создать пост</Link>
             </Toolbar>
         )
     }

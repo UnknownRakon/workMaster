@@ -28,8 +28,8 @@ function MyPosts() {
             }
         )();
     })
-    const postDelete = (post) => {
-        axios.delete(`http://127.0.0.1:8000/api/blogpost/${post}/`)
+    const postDelete = async (post) => {
+        await axios.delete(`http://127.0.0.1:8000/api/blogpost/${post}/`)
         axios({
                 method: "GET",
                 url: `http://127.0.0.1:8000/api/blogpost`

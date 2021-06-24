@@ -1,8 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { Typography } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 
-function CategoryDetail({ match, type, setCategoryGlobal }) {
+
+
+const useStyles = makeStyles((theme) => ({
+    container: {
+        width: '100%',
+        backgroundColor: theme.palette.background.paper,
+        paddingTop: 15,
+        paddingBottom: 20,
+    }
+}));
+
+export default function CategoryDetail({ match, type, setCategoryGlobal }) {
+    const classes = useStyles();
 
     const [category, setCategory] = useState({})
     const [posts, setPosts] = useState([])
@@ -20,11 +38,11 @@ function CategoryDetail({ match, type, setCategoryGlobal }) {
     }, [id])
 
     return (
-        <div>
-            <Link to={{pathname:`/type/${type}`, fromDashboard: false}}>Назад</Link>
-            Category with id {category.id}
-            <p>Category: <strong>{category.name}</strong></p>
-            <hr/>
+        <Container component="main" maxWidth="xl" className={classes.container}>
+            <CssBaseline />
+            <Link style={{marginTop: 15}} to={{pathname:`/type/${type}`, fromDashboard: false}}><ArrowBackIcon fontSize='large'/></Link>
+            <Typography variant="h2" gutterBottom align='center'>Категория: {category.name}</Typography>
+            <Divider />
             <div className="row">
                 {posts.map((unit,index)=>{ 
                     if (unit.blog_type == type){ return(
@@ -38,8 +56,7 @@ function CategoryDetail({ match, type, setCategoryGlobal }) {
                 }
                 )}
             </div>
-        </div>
+        </Container>
     )
 }
 
-export default CategoryDetail

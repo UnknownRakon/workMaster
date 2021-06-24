@@ -65,7 +65,7 @@ class BlogPost(models.Model):
             return f"{self.title} из категории \"{self.blog_category.name}\" с типом \"{self.blog_type.name}\""
 
 class Comments(models.Model):
-        blog_post = models.ForeignKey(BlogPost, verbose_name='Имя поста', on_delete=models.PROTECT)
+        blog_post = models.ForeignKey(BlogPost, verbose_name='Имя поста', on_delete=models.CASCADE)
         owner = models.ForeignKey(User, verbose_name='Создатель', on_delete=models.PROTECT)
         comment = models.TextField(null=False)
         pub_date = models.DateTimeField(auto_now=True)
