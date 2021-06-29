@@ -16,6 +16,9 @@ import NewComment from './pages/CreateComment';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 
+import Footer from './components/footer';
+
+
 
 function App() {
   const [type, SetTypeGlobal] = useState({})
@@ -39,9 +42,7 @@ function App() {
           <Route path='/login' exact  render={(props) => <Login setNameGlobal={setNameGlobal} {...props} />} />
           <Route path='/register' exact render={(props) => <Register {...props} />} />
         </Switch>
-        <footer>
-          
-        </footer>
+        <Footer title="Проект студента группы 201-321 Воробьёва Владислава" description="Московский Политехнический Университет - 2021" />
       </Router>
     </Container>
   );
