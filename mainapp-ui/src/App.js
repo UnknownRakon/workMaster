@@ -39,6 +39,9 @@ function App() {
           <Route path='/login' exact  render={(props) => <Login setNameGlobal={setNameGlobal} {...props} />} />
           <Route path='/register' exact render={(props) => <Register {...props} />} />
         </Switch>
+        <footer>
+          
+        </footer>
       </Router>
     </Container>
   );

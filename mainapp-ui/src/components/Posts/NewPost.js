@@ -1,8 +1,23 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import { Typography } from '@material-ui/core';
+
+
+const useStyles = makeStyles((theme) => ({
+    container: {
+        width: '100%',
+        backgroundColor: theme.palette.background.paper,
+        paddingTop: 15,
+        paddingBottom: 20,
+    },
+}));
 
 const NewPost = () => {
+
+    const classes = useStyles();
     const [categories, setCategoryList] = useState([])
 
     const [title, setTitle] = useState('');
@@ -58,10 +73,10 @@ const NewPost = () => {
         return <Redirect to='/myposts' />;
 
     return (
-        <div>
+        <Container component="main" maxWidth="xl" className={classes.container}>
                 <form className='col-10 mx-auto' onSubmit={submit}>
                     <fieldset>
-                        <legend className='text-center'>Сойздайте новый пост</legend>
+                        <legend className='text-center'><Typography variant="h2" gutterBottom >Создать пост</Typography></legend>
                         <div class="form-floating mb-3">
                             <input onChange={e => setTitle(e.target.value)} type="text" class="form-control" id="floatingInput" placeholder="Заголовок" />
                             <label for="floatingInput">Заголовок</label>
@@ -96,7 +111,7 @@ const NewPost = () => {
                         <button type="submit" class="mt-3 btn btn-primary col-12">Выложить</button>
                     </fieldset>
                 </form>
-        </div>
+        </Container>
     );
 };
 

@@ -1,8 +1,22 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import { Typography } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+    container: {
+        width: '100%',
+        backgroundColor: theme.palette.background.paper,
+        paddingTop: 15,
+        paddingBottom: 20,
+    },
+}));
 
 const ChangePost = ({match}) => {
+    const classes = useStyles();
+
     const [post, setPost] = useState({})
     const id = match.params.id
     const [categories, setCategoryList] = useState([])
@@ -75,11 +89,10 @@ const ChangePost = ({match}) => {
         return <Redirect to='/myposts' />;
 
     return (
-        <div>
-            <main className="form-signin">
-                <form onSubmit={submit}>
+        <Container component="main" maxWidth="xl" className={classes.container}>
+                <form className='col-10 mx-auto' onSubmit={submit}>
                     <fieldset>
-                        <legend>Изменить пост</legend>
+                        <legend className='text-center'><Typography variant="h2" gutterBottom >Изменить пост</Typography></legend>
                         <div class="form-floating mb-3">
                             <input value={title} onChange={e => setTitle(e.target.value)} type="text" class="form-control" id="floatingInput" placeholder="Заголовок" />
                             <label for="floatingInput">Заголовок</label>
@@ -111,11 +124,10 @@ const ChangePost = ({match}) => {
                             </textarea>
                             <label for="floatingTextarea2">Описание</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Изменить</button>
+                        <button type="submit" class="mt-3 btn btn-primary col-12">Изменить</button>
                     </fieldset>
                 </form>
-            </main>
-        </div>
+            </Container>
     );
 };
 
