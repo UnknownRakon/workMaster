@@ -71,7 +71,7 @@ export default function MyPosts() {
                                 if (unit.owner !== undefined) {
                                     if (unit.owner.email === email) {
                                     return (
-                                        <Card key={index}>
+                                        <Card key={index} style={{marginBottom: 15}}>
                                             <CardContent style={{marginBottom: 0, paddingBottom: 0}}>
                                                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                                                     Зарплата: {unit.salary} руб
