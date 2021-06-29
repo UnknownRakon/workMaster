@@ -3,12 +3,42 @@ import PropTypes from 'prop-types'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Alert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
+
+import { withStyles } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+import Radio from '@material-ui/core/Radio';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+
+import Typography from '@material-ui/core/Typography';
+
+const GreenRadio = withStyles({
+  root: {
+    color: green[400],
+    '&$checked': {
+      color: green[600],
+    },
+  },
+  checked: {},
+})((props) => <Radio color="default" {...props} />);
+
+
+const useStyles = makeStyles((theme) => ({
+    container: {
+        width: '100%',
+        backgroundColor: theme.palette.background.paper,
+        paddingTop: 15,
+        paddingBottom: 20,
+    },
+}));
 
 const Home = ({ setNameGlobal }) => {
+    const classes = useStyles();
     const [name, setName] = useState('')
     const [done, setDone] = useState(false)
     const [owner, setOwner] = useState('')
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState(3)
 
     useEffect(() => {
         (
@@ -38,35 +68,66 @@ const Home = ({ setNameGlobal }) => {
     }
     if (name) {
         return (
-            <Container maxWidth="sm" style={{marginTop: 20}}>
+            <Container component="main" maxWidth="xl" className={classes.container}>
             <CssBaseline />
-            <h1>Здравствуйте, {name}</h1>
+            <Typography style={{textAlign: 'center'}} variant="h4" component="h1" gutterBottom>Здравствуйте, {name}</Typography>
+            <Typography variant="body1" gutterBottom style={{marginBottom: 20}}>
+            Worker — один из лучших сайтов по поиску работы и сотрудников в мире. 
+            Мы создаем передовые технологии на всех доступных платформах для того, чтобы работодатели могли быстро найти подходящего сотрудника, 
+            а соискатели — хорошую работу. Наши мобильные приложения стабильно занимают первые места в категории «Бизнес» на всех платформах. 
+            Каждый месяц на сайте появляется более полумиллиона вакансий, а технологии для работы с персоналом насчитывают более 30 позиций. 
+            Ежедневно мы помогаем сотням тысяч человек изменить свою жизнь к лучшему.
+            </Typography>
+            <Paper style={{display: 'flex' ,flexDirection: 'column' , alignItems: 'center', paddingBottom: 15, paddingTop: 10}} elevation={3}>
+            <Typography style={{textAlign:'center'}} variant="h5" component="h2" gutterBottom>
+                Оцените работу нашего сервиса
+            </Typography>
                 <form onSubmit={submit}>
-                    <fieldset disabled={done}>
-                        <legend>Оцените работу нашего сервиса</legend>
-                        <div className="form-check form-check-inline">
-                            <input onChange={e => setValue(e.target.value)} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" />
-                            <label className="form-check-label" for="inlineRadio1">1</label>
+                    <fieldset disabled={done} style={{display: 'flex', flexDirection: 'column' , alignItems: 'center'}}>
+                    <div style={{marginBottom: 10}}>
+                        <Radio
+                            checked={value == 1}
+                            onChange={e => setValue(e.target.value)}
+                            value="1"
+                            name="radio-button-demo"
+                            inputProps={{ 'aria-label': '1' }}
+                        />
+                        <Radio
+                            checked={value == 2}
+                            onChange={e => setValue(e.target.value)}
+                            value="2"
+                            name="radio-button-demo"
+                            inputProps={{ 'aria-label': '2' }}
+                        />
+                        <Radio
+                            checked={value == 3}
+                            onChange={e => setValue(e.target.value)}
+                            value="3"
+                            name="radio-button-demo"
+                            inputProps={{ 'aria-label': '3' }}
+                            color="default"
+                        />
+                        <GreenRadio
+                            checked={value == 4}
+                            onChange={e => setValue(e.target.value)}
+                            value="4"
+                            name="radio-button-demo"
+                            inputProps={{ 'aria-label': '4' }}
+                        />
+                        <GreenRadio
+                            checked={value == 5}
+                            onChange={e => setValue(e.target.value)}
+                            value="5"
+                            name="radio-button-demo"
+                            inputProps={{ 'aria-label': '5' }}
+                        />
                         </div>
-                        <div className="form-check form-check-inline">
-                            <input onChange={e => setValue(e.target.value)} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" />
-                            <label className="form-check-label" for="inlineRadio1">2</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input onChange={e => setValue(e.target.value)} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3" />
-                            <label className="form-check-label" for="inlineRadio1">3</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input onChange={e => setValue(e.target.value)} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="4" />
-                            <label className="form-check-label" for="inlineRadio1">4</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input onChange={e => setValue(e.target.value)} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="5" />
-                            <label className="form-check-label" for="inlineRadio1">5</label>
-                        </div>
-                        <button type="submit" className="btn btn-primary">Оценить</button>
+                        <Button type="submit" variant="contained" color="primary">
+                        Оценить
+                        </Button>
                     </fieldset>
                 </form>
+            </Paper>
             </Container>
         );
     } else return <Alert severity="error">Пожалуйста, войдите на сайт</Alert>
