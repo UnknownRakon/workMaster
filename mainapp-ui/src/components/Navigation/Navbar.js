@@ -52,14 +52,14 @@ export default function Navbar({ name }) {
     useEffect(() => {
         axios({
             method: "GET",
-            url: 'http://127.0.0.1:8000/api/type/'
+            url: 'http://worker.std-1378.ist.mospolytech.ru/api/type/'
         }).then(response => {
             setTypes(response.data)
         })
     }, [])
 
     const logout = async () => {
-        await fetch('http://127.0.0.1:8000/api/logout', {
+        await fetch('http://worker.std-1378.ist.mospolytech.ru/api/logout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

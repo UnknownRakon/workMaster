@@ -13,6 +13,8 @@ import Button from '@material-ui/core/Button';
 
 import Typography from '@material-ui/core/Typography';
 
+import Cookies from 'js-cookie'
+
 const GreenRadio = withStyles({
   root: {
     color: green[400],
@@ -43,7 +45,7 @@ const Home = ({ setNameGlobal }) => {
     useEffect(() => {
         (
             async () => {
-                const response = await fetch('http://127.0.0.1:8000/api/user', {
+                const response = await fetch('http://worker.std-1378.ist.mospolytech.ru/api/user', {
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include'
                 });
@@ -56,9 +58,10 @@ const Home = ({ setNameGlobal }) => {
     })
     const submit = async (e) => {
         e.preventDefault()
-        await fetch('http://127.0.0.1:8000/api/reviews/', {
+        await fetch('http://worker.std-1378.ist.mospolytech.ru/api/reviews/', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+            'X-CSRFToken': '' + Cookies.get('csrftoken') },
             body: JSON.stringify({
                 owner,
                 value

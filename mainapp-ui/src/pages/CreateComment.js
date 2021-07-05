@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import Cookies from 'js-cookie'
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -36,7 +37,7 @@ const NewComment = ({ postID }) => {
     useEffect(() => {
         (
             async () => {
-                const response = await fetch('http://127.0.0.1:8000/api/user', {
+                const response = await fetch('http://worker.std-1378.ist.mospolytech.ru/api/user', {
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include'
                 });
@@ -48,9 +49,10 @@ const NewComment = ({ postID }) => {
 
     const submit = async (e) => {
         e.preventDefault()
-        await fetch('http://127.0.0.1:8000/api/comments/', {
+        await fetch('http://worker.std-1378.ist.mospolytech.ru/api/comments/', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+            'X-CSRFToken': '' + Cookies.get('csrftoken') },
             body: JSON.stringify({
                 owner,
                 comment,

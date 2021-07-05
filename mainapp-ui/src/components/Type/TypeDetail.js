@@ -36,7 +36,7 @@ export default function TypeDetail({ match, SetTypeGlobal }) {
     useEffect(() => {
         axios({
             method: "GET",
-            url: 'http://127.0.0.1:8000/api/category/'
+            url: 'http://worker.std-1378.ist.mospolytech.ru/api/category/'
         }).then(response => {
             setCategory(response.data)
         })

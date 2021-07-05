@@ -12,6 +12,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 
+import Cookies from 'js-cookie'
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -45,9 +47,10 @@ export default function Login({ setNameGlobal }) {
   const submit = async (e) => {
     e.preventDefault();
 
-    await fetch('http://127.0.0.1:8000/api/login', {
+    await fetch('http://worker.std-1378.ist.mospolytech.ru/api/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json',
+      },
       credentials: 'include',
       body: JSON.stringify({
         email,

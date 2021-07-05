@@ -39,7 +39,7 @@ export default function PostDetail({ match, category, setPostID}) {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://127.0.0.1:8000/api/blogpost/${id}/`
+            url: `http://worker.std-1378.ist.mospolytech.ru/api/blogpost/${id}/`
         }).then(response => {
             setPost(response.data)
         })

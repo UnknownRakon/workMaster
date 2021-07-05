@@ -11,6 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 
+import Cookies from 'js-cookie'
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -43,9 +45,10 @@ export default function Register() {
   const [redirect, setRedirect] = useState(false)
   const submit = async (e) => {
     e.preventDefault()
-    await fetch('http://127.0.0.1:8000/api/register', {
+    await fetch('http://worker.std-1378.ist.mospolytech.ru/api/register', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         name,
         email,

@@ -4,6 +4,7 @@ import { Redirect } from "react-router";
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Typography } from '@material-ui/core';
+import Cookies from 'js-cookie'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +33,7 @@ const NewPost = () => {
     useEffect(() => {
         (
             async () => {
-                const response = await fetch('http://127.0.0.1:8000/api/user', {
+                const response = await fetch('http://worker.std-1378.ist.mospolytech.ru/api/user', {
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include'
                 });
@@ -45,7 +46,7 @@ const NewPost = () => {
     useEffect(() => {
         axios({
             method: "GET",
-            url: 'http://127.0.0.1:8000/api/category/'
+            url: 'http://worker.std-1378.ist.mospolytech.ru/api/category/'
         }).then(response => {
             setCategoryList(response.data)
         })
@@ -53,9 +54,10 @@ const NewPost = () => {
 
     const submit = async (e) => {
         e.preventDefault()
-        await fetch('http://127.0.0.1:8000/api/blogpost/', {
+        await fetch('http://worker.std-1378.ist.mospolytech.ru/api/blogpost/', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+            'X-CSRFToken': '' + Cookies.get('csrftoken') },
             body: JSON.stringify({
                 title,
                 salary,

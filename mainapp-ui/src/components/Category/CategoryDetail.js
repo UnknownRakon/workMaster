@@ -37,7 +37,7 @@ export default function CategoryDetail({ match, type, setCategoryGlobal }) {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://127.0.0.1:8000/api/category/${id}/`
+            url: `http://worker.std-1378.ist.mospolytech.ru/api/category/${id}/`
         }).then(response => {
             setCategory(response.data)
             setPosts(response.data.posts)

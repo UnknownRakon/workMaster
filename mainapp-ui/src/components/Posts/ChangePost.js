@@ -4,6 +4,7 @@ import { Redirect } from "react-router";
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Typography } from '@material-ui/core';
+import Cookies from 'js-cookie'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -33,7 +34,7 @@ const ChangePost = ({match}) => {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://127.0.0.1:8000/api/blogpost/${id}/`
+            url: `http://worker.std-1378.ist.mospolytech.ru/api/blogpost/${id}/`
         }).then(response => {
             setPost(response.data)
             setTitle(response.data.title)
@@ -48,8 +49,9 @@ const ChangePost = ({match}) => {
     useEffect(() => {
         (
             async () => {
-                const response = await fetch('http://127.0.0.1:8000/api/user', {
-                    headers: { 'Content-Type': 'application/json' },
+                const response = await fetch('http://worker.std-1378.ist.mospolytech.ru/api/user', {
+                    headers: { 'Content-Type': 'application/json',
+                    'X-CSRFToken': '' + Cookies.get('csrftoken') },
                     credentials: 'include'
                 });
                 const content = await response.json();
@@ -61,7 +63,7 @@ const ChangePost = ({match}) => {
     useEffect(() => {
         axios({
             method: "GET",
-            url: 'http://127.0.0.1:8000/api/category/'
+            url: 'http://worker.std-1378.ist.mospolytech.ru/api/category/'
         }).then(response => {
             setCategoryList(response.data)
         })
@@ -69,9 +71,10 @@ const ChangePost = ({match}) => {
 
     const submit = async (e) => {
         e.preventDefault()
-        await fetch(`http://127.0.0.1:8000/api/blogpost/${id}/`, {
+        await fetch(`http://worker.std-1378.ist.mospolytech.ru/api/blogpost/${id}/`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+            'X-CSRFToken': '' + Cookies.get('csrftoken') },
             body: JSON.stringify({
                 title,
                 salary,

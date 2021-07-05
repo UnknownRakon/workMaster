@@ -11,6 +11,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Cookies from 'js-cookie'
+
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -33,7 +35,7 @@ export default function MyPosts() {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://127.0.0.1:8000/api/blogpost`
+            url: `http://worker.std-1378.ist.mospolytech.ru/api/blogpost`
         }).then(response => {
             setPosts(response.data)
         })
@@ -43,8 +45,9 @@ export default function MyPosts() {
     useEffect(() => {
         (
             async () => {
-                const response = await fetch('http://127.0.0.1:8000/api/user', {
-                    headers: { 'Content-Type': 'application/json' },
+                const response = await fetch('http://worker.std-1378.ist.mospolytech.ru/api/user', {
+                    headers: { 'Content-Type': 'application/json',
+                    'X-CSRFToken': '' + Cookies.get('csrftoken') },
                     credentials: 'include'
                 });
                 const content = await response.json();
@@ -53,10 +56,11 @@ export default function MyPosts() {
         )();
     })
     const postDelete = async (post) => {
-        await axios.delete(`http://127.0.0.1:8000/api/blogpost/${post}/`)
+        await axios.delete(`http://worker.std-1378.ist.mospolytech.ru/api/blogpost/${post}/`, {headers: { 'Content-Type': 'application/json',
+        'X-CSRFToken': '' + Cookies.get('csrftoken') }})
         axios({
                 method: "GET",
-                url: `http://127.0.0.1:8000/api/blogpost`
+                url: `http://worker.std-1378.ist.mospolytech.ru/api/blogpost`
             }).then(response => {
                 setPosts(response.data)
             })
