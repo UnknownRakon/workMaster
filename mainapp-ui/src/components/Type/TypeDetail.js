@@ -45,7 +45,7 @@ export default function TypeDetail({ match, SetTypeGlobal }) {
     return (
         <Container component="main" maxWidth="xl" className={classes.container}>
             <CssBaseline />
-            <Typography variant="h2" gutterBottom align='center'>{id == 1 ? 'Вакансии' : 'Специалисты'}</Typography>
+            <Typography variant="h6" component="h1" gutterBottom align='center'>{id == 1 ? 'Вакансии' : 'Специалисты'}</Typography>
             <List component="nav" className={classes.root} aria-label="Категории">
                 {category.map(p => (
                     <Link to={{ pathname: `/category/${p.id}`, fromDashboard: false }} style={{color: 'black', textDecoration: 'none'}}>

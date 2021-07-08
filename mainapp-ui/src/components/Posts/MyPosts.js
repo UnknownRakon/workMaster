@@ -68,7 +68,7 @@ export default function MyPosts() {
     return (
             <Container component="main" maxWidth="xl" className={classes.container}>
                         <CssBaseline />
-                        <Typography variant="h3" component="h1" gutterBottom align='center'>Мои посты</Typography>
+                        <Typography variant="h6" component="h1" gutterBottom align='center'>Мои посты</Typography>
                         <Divider />
                         <Box>
                             {posts.map((unit, index) => {

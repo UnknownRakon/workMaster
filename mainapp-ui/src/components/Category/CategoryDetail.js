@@ -48,7 +48,7 @@ export default function CategoryDetail({ match, type, setCategoryGlobal }) {
         <Container component="main" maxWidth="xl" className={classes.container}>
             <CssBaseline />
             <Link style={{ marginTop: 15 }} to={{ pathname: `/type/${type}`, fromDashboard: false }}><ArrowBackIcon fontSize='large' /></Link>
-            <Typography variant="h3" component="h1" gutterBottom align='center'>Категория: {category.name}</Typography>
+            <Typography variant="h6" component="h1" gutterBottom align='center'>Категория: {category.name}</Typography>
             <Divider />
             <Box>
                 {posts.map((unit, index) => {
