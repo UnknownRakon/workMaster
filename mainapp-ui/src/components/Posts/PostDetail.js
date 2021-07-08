@@ -103,8 +103,8 @@ export default function PostDetail({ match, category, setPostID}) {
                                     {unit.pub_date.slice(0, 10)}
                                 </Typography>
                                 {unit.owner !== undefined ? <Chip
-                                    avatar={<Avatar>{unit.owner.name.slice(0,1)}</Avatar>}
-                                    label={unit.owner.name}
+                                    avatar={<Avatar>{unit.owner.email.slice(0,1)}</Avatar>}
+                                    label={unit.owner.email}
                                     variant="outlined"
                                     color={unit.owner.email === post.owner.email ? "primary" : 'default'}
                                 />: null}
