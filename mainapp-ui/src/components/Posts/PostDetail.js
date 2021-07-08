@@ -58,7 +58,7 @@ export default function PostDetail({ match, category, setPostID}) {
             {category !== undefined ? 
             <Link style={{ marginTop: 15 }} to={{pathname:`/category/${category}`, fromDashboard: false }}><ArrowBackIcon fontSize='large' /></Link> 
             : null}
-            <Typography variant="h3" gutterBottom align='center'>{post.title}</Typography>
+            <Typography variant="h6" component="h1" gutterBottom align='center'>{post.title}</Typography>
             <Divider style={{marginBottom: 15}}/>
             <div style={{display:'flex', justifyContent:"space-between", alignItems:'center', flexWrap: 'wrap'}}>
             {post.owner !== undefined ? 
