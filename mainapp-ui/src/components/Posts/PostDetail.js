@@ -83,7 +83,7 @@ export default function PostDetail({ match, category, setPostID}) {
                 Связаться
             </Button>
             </div>
-            <div style={{display: 'flex', justifyContent: 'center', marginBottom: 10}}>
+            <div style={{display: 'flex', justifyContent: 'center', marginBottom: 10,  pageBreakBefore: 'always'}}>
                 <Badge color="secondary" badgeContent={commentNum} max={999}>
                     <Typography variant="h4">
                         Комментарии
