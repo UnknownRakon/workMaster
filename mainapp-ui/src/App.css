@@ -1,3 +1,9 @@
 body{
     background-image: url('./img/pattern.png');
 }
+@media print{
+    .comments{
+        page-break-before: always;
+        padding-top: 1.5cm;
+    }
+}

@@ -15,6 +15,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import '../../App.css'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -83,8 +84,8 @@ export default function PostDetail({ match, category, setPostID}) {
                 Связаться
             </Button>
             </div>
-            <div style={{display: 'flex', justifyContent: 'center', marginBottom: 10,  pageBreakBefore: 'always'}}>
-                <Badge style={{pageBreakInside: 'avoid'}} color="secondary" badgeContent={commentNum} max={999}>
+            <div style={{display: 'flex', justifyContent: 'center', marginBottom: 10}} className='comments'>
+                <Badge color="secondary" badgeContent={commentNum} max={999}>
                     <Typography variant="h4">
                         Комментарии
                     </Typography>
