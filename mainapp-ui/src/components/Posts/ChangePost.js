@@ -95,7 +95,7 @@ const ChangePost = ({match}) => {
         <Container component="main" maxWidth="xl" className={classes.container}>
                 <form className='col-10 mx-auto' onSubmit={submit}>
                     <fieldset>
-                        <legend className='text-center'><Typography variant="h2" gutterBottom >Изменить пост</Typography></legend>
+                        <legend className='text-center'><Typography variant="h3" component="h1" gutterBottom >Изменить пост</Typography></legend>
                         <div class="form-floating mb-3">
                             <input value={title} onChange={e => setTitle(e.target.value)} type="text" class="form-control" id="floatingInput" placeholder="Заголовок" />
                             <label for="floatingInput">Заголовок</label>
