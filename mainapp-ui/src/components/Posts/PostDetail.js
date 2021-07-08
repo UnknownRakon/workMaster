@@ -84,7 +84,7 @@ export default function PostDetail({ match, category, setPostID}) {
             </Button>
             </div>
             <div style={{display: 'flex', justifyContent: 'center', marginBottom: 10,  pageBreakBefore: 'always'}}>
-                <Badge color="secondary" badgeContent={commentNum} max={999}>
+                <Badge style={{pageBreakInside: 'avoid'}} color="secondary" badgeContent={commentNum} max={999}>
                     <Typography variant="h4">
                         Комментарии
                     </Typography>
